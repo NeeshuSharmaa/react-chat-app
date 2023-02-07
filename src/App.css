@@ -18,11 +18,35 @@ button {
   cursor: pointer;
 }
 
+/* login-signup page */
+.login-error{
+  font-size:10px;
+  color:white;
+  background-color:rgb(253, 68, 68);
+  padding:5px;
+  margin:1rem;
+  border-radius:4px;
+  display:flex;
+  justify-content: center;
+}
+.login-error img{
+  max-width:10px;
+  max-height:10px;
+  margin:2px;
+  filter: invert(1);
+}
+.login-img-div{
+  display:flex;
+  justify-content: center;
+  padding:2rem;
+}
 .login-page-img{
-  max-height:400px;
-  margin:3rem 0 2rem 3rem;
+  max-height: 400px;
+  max-width: 500px;
+  margin:0 auto;
   border-radius:2rem;
   border:1px solid var(--offwhite);
+
   
   
   /* border-top-right-radius: 5rem; */
@@ -33,27 +57,24 @@ button {
   flex-direction: horizontal;
   background-color:black;
   height: 100vh;
+  width:100vw;
   justify-content:space-between;
   
 }
-
-
 
 .log-container-1 {
   /* background-color: var(--greenish-white); */
   display: flex;
   flex-direction: column;
   padding: 1rem 2rem 2rem 2rem;
-  max-width: 70%;
-  margin: auto auto;
-  border-radius: 0.5rem;
-
   
+  margin: auto auto;
+  border-radius: 0.5rem;  
 }
 h1 {
   color: var(--offwhite);
   text-align: center;
-  margin-top: 3.5rem;
+  /* margin-top: 3.5rem; */
 }
 
 input {
@@ -62,8 +83,6 @@ input {
   border-radius: 0.5rem;
   background-color:var(--offwhite);
   border-width: 0;
-
-
 }
 
 input:focus {
@@ -78,7 +97,6 @@ input:focus {
   background-color: var(--primary-violet);
   color: white;
   border-width: 0;
-
 }
 
 .submit-btn:hover {
@@ -97,15 +115,9 @@ input:focus {
   filter: invert(1);
 }
 
-/* //dashboard */
-.dashboard {
-  display: flex;
-  flex-direction: horizontal;
-}
 .registered-or-not{
   font-size:12px;
   margin: 1rem auto 0 auto;
-
 }
 .registered-or-not{
   color:var(--offwhite);
@@ -118,4 +130,17 @@ input:focus {
 
 .registered-or-not a:hover {
   color: var(--lightest-primary);
+}
+
+/* dashboard */
+.dashboard {
+  display: flex;
+  flex-direction: horizontal;
+}
+.userslist{
+  background-color:var(--primary-violet);
+  border-right:1px solid black;
+  color:white;
+  /* padding:2rem; */
+  height:100vh;
 }
