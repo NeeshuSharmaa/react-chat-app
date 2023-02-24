@@ -4,7 +4,13 @@ import { addDoc } from "firebase/firestore";
 
 import { Link, useNavigate } from "react-router-dom";
 
-export default function SignupPage({ colRef, users, setUsers }) {
+export default function SignupPage({
+  colRef,
+  users,
+  setUsers,
+  setLoggedIn,
+  setCurrentUser,
+}) {
   const navigate = useNavigate();
   const name = useRef();
   const email = useRef();
@@ -27,6 +33,7 @@ export default function SignupPage({ colRef, users, setUsers }) {
     createUserWithEmailAndPassword(auth, userEmail, userPassword)
       .then((cred) => {
         console.log("new user signed up", cred.user);
+        setCurrentUser(cred.user.email);
         addDoc(colRef, newUser)
           .then(() => {
             setUsers([...users, newUser]);
@@ -36,7 +43,8 @@ export default function SignupPage({ colRef, users, setUsers }) {
             setError(err.message);
             console.log("addDoc error:", err.message);
           });
-        navigate("/dashboard");
+        navigate("/home");
+        setLoggedIn(true);
       })
       .catch((err) => {
         setError(err.message);
@@ -49,10 +57,6 @@ export default function SignupPage({ colRef, users, setUsers }) {
 
   return (
     <div className="login-page">
-      {/* <div className="login-img-div">
-        <img className="login-page-img" src="/image1.jpg" />
-      </div> */}
-
       <div className="log-container-1">
         {error && (
           <div className="login-error">

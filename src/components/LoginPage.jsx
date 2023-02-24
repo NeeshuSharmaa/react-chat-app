@@ -1,24 +1,31 @@
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 import React, { useState, useRef } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 
-export default function LoginPage() {
+export default function LoginPage({
+  colRef,
+  setLoggedIn,
+  users,
+  setCurrentUser,
+}) {
   const navigate = useNavigate();
   const email = useRef();
   const password = useRef();
   const auth = getAuth();
   const [error, setError] = useState(null);
-  const [currentUser, setCurrentUser] = useState();
+
   const loginHandler = (e) => {
     e.preventDefault();
-
     var userEmail = email.current.value;
     var userPassword = password.current.value;
     signInWithEmailAndPassword(auth, userEmail, userPassword)
       .then((cred) => {
         console.log("user logged in", cred.user);
-        navigate("/dashboard");
+        setCurrentUser(cred.user.email);
+        setLoggedIn(true);
+        navigate("/home");
       })
       .catch((err) => {
         setError(err.message);
@@ -30,10 +37,6 @@ export default function LoginPage() {
   };
   return (
     <div className="login-page">
-      {/* <div className="login-img-div">
-        <img className="login-page-img" src="/image1.jpg" />
-      </div> */}
-
       <div className="log-container-1">
         {error && (
           <div className="login-error">

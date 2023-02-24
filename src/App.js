@@ -1,14 +1,26 @@
 import "./App.css";
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  addDoc,
+  doc,
+} from "firebase/firestore";
 import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignupPage";
 import { Route, Routes } from "react-router-dom";
-import { useState, useEffect } from "react";
-import Dashboard from "./components/Dashboard";
+import { useState, useEffect, createContext } from "react";
+import Home from "./components/home/Home";
+import PrivateRoute from "./routes/PrivateRoute";
+export const userContext = createContext();
 
 function App() {
   const [users, setUsers] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [currentUserInfo, setCurrentUserInfo] = useState(null);
+
   const firebaseConfig = {
     apiKey: "AIzaSyDgeYKOCA6WGrCzUbrL__j5nRVWLjxRa_A",
     authDomain: "chat-app-6b0f6.firebaseapp.com",
@@ -38,16 +50,41 @@ function App() {
 
   return (
     <div className="App">
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <SignupPage colRef={colRef} users={users} setUsers={setUsers} />
-          }
-        ></Route>
-        <Route path="/login" element={<LoginPage colRef={colRef} />}></Route>
-        <Route path="/dashboard" element={<Dashboard />} />
-      </Routes>
+      <userContext.Provider value={loggedIn}>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <SignupPage
+                colRef={colRef}
+                users={users}
+                setUsers={setUsers}
+                setCurrentUser={setCurrentUser}
+                setLoggedIn={setLoggedIn}
+              />
+            }
+          ></Route>
+          <Route
+            path="/login"
+            element={
+              <LoginPage
+                users={users}
+                colRef={colRef}
+                setCurrentUser={setCurrentUser}
+                setLoggedIn={setLoggedIn}
+              />
+            }
+          ></Route>
+          <Route
+            path="/home"
+            element={
+              <PrivateRoute
+                component={<Home users={users} currentUser={currentUser} />}
+              />
+            }
+          />
+        </Routes>
+      </userContext.Provider>
     </div>
   );
 }
