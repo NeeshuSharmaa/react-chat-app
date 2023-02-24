@@ -196,6 +196,9 @@ hr{
 .chats {
   flex: 2;
 }
+.userlist-container{
+  overflow-y: scroll;
+}
 .user{
   display:flex;
   flex-direction: horizontal;

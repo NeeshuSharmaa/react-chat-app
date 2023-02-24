@@ -8,15 +8,17 @@ export default function Sidebar({ users, currentUser, currentUserInfo }) {
   return (
     <div className="sidebar">
       <Navbar searchUser={searchUser} currentUserInfo={currentUserInfo} />
-      {users &&
-        users.map((user) => (
-          <User
-            key={user.email}
-            currentUser={currentUser}
-            user={user}
-            userEmail={user.email}
-          />
-        ))}
+      <div className="userlist-container">
+        {users &&
+          users.map((user) => (
+            <User
+              key={user.email}
+              currentUser={currentUser}
+              user={user}
+              userEmail={user.email}
+            />
+          ))}
+      </div>
     </div>
   );
 }
